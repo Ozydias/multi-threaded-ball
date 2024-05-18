@@ -8,7 +8,7 @@ public class Ball extends Thread{
     private Color color;
     private int x,y,r,vx,vy;
     private Frame frame;
-    boolean isGameOver = true;
+    boolean isGameOver = false;
     double distX,distY,distance;
 
 
@@ -57,7 +57,7 @@ public class Ball extends Thread{
         distX = Math.abs(Frame.mouseX - x);
         distY = Math.abs(Frame.mouseY - y);
         distance = distX * distX + distY * distY;
-        if(distance < 90 * 90 || Frame.mouseX >= 800 - 40 || Frame.mouseY >= 750 - 40 || Frame.mouseX <= 40 || Frame.mouseX <= 40){
+        if(distance < 50 * 50 || Frame.mouseX >= 780 || Frame.mouseX <= 10 || Frame.mouseY >= 720 || Frame.mouseY <= 40){
             isGameOver = true;
             frame.setIsGameOver(isGameOver);
         }
@@ -73,21 +73,25 @@ public class Ball extends Thread{
         x += vx;
         y += vy;
         //小球在左右两个方向越界时，发生碰撞，向反方向运动
-        if(x <= r || x >= frame.getWidth() - r){
+        if(x <= 0 || x >= frame.getWidth() - r){
             vx = -vx;
-            if(x <= r){
-                x = r;
+            if(x < 0){
+                x = 0;
             }else if(x > frame.getWidth() - r){
                 x = frame.getWidth() - r;
+            }else {
+
             }
         }
         //小球在上下两个方向越界时，发生碰撞，向反方向运动
-        if(y <= r || y >= frame.getHeight() - r){
+        else if(y <= 0 || y >= frame.getHeight() - r){
             vy = -vy;
-            if(y <= r){
-                y = r;
+            if(y <= 0){
+                y = 0;
             }else if(y > frame.getHeight() - r){
                 y = frame.getHeight() - r;
+            }else {
+
             }
         }
     }
